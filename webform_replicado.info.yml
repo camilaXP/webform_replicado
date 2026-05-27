@@ -1,0 +1,5 @@
+name: 'webform_replicado'
+type: module
+description: 'Campos de webform para replicado'
+package: Universidade de São Paulo
+core_version_requirement: ^10 || ^11
