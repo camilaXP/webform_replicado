@@ -32,36 +32,58 @@ public static function validatePosGrad(&$element, FormStateInterface $form_state
     
  $value = $element['#value'];
 
-  if  (
-      !str_contains($value, 'Antropologia Social') &&
-      !str_contains($value, 'Ciência Política') &&
-      !str_contains($value, 'Estudos Comparados de Literaturas de Língua Portuguesa') &&
-      !str_contains($value, 'Estudos Linguísticos e Literários em Inglês') &&
-      !str_contains($value, 'Filologia e Língua Portuguesa') &&
-      !str_contains($value, 'Filosofia') &&
-      !str_contains($value, 'Geografia Física') &&
-      !str_contains($value, 'Geografia Humana') &&
-      !str_contains($value, 'História Econômica') &&
-      !str_contains($value, 'História Social') &&
-      !str_contains($value, 'Humanidades, Direitos e Outras Legitimidades') &&
-      !str_contains($value, 'Letras Clássicas') &&
-      !str_contains($value, 'Letras Estrangeiras e Tradução (LETRA)') &&
-      !str_contains($value, 'Língua e Literatura Alemã') &&
-      !str_contains($value, 'Língua Espanhola e Literaturas Espanhola e Hispano-Americana') &&
-      !str_contains($value, 'Língua, Literatura e Cultura Italianas') &&
-      !str_contains($value, 'Língua, Literatura e Cultura Japonesa') &&
-      !str_contains($value, 'Linguística') &&
-      !str_contains($value, 'Literatura Brasileira') &&
-      !str_contains($value, 'Literatura Portuguesa') &&
-      !str_contains($value, 'Mestrado Profissional em Letras em Rede Nacional (PROFLETRAS)') &&
-      !str_contains($value, 'Sociologia') &&
-      !str_contains($value, 'Teoria Literária e Literatura Comparada') 
-      
-    )
-   {
+ $value = mb_strtolower($element['#value'], 'UTF-8');
+
+ $value = strtr($value, [
+  'á' => 'a', 'à' => 'a', 'ã' => 'a', 'â' => 'a',
+  'é' => 'e', 'ê' => 'e',
+  'í' => 'i',
+  'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+  'ú' => 'u',
+  'ç' => 'c',
+ ]);
+ 
+ $programas = [
+   'antropologia social',
+   'ciencia politica',
+   'estudos comparados de literaturas de linguas portuguesa',
+   'estudos linguisticos e literarios em ingles',
+   'filologia e lingua portuguesa',
+   'filosofia',
+   'geografia fisica',
+   'geografia humana',
+   'historia economica',
+   'historia social',
+   'humanidades, direitos e outras legitimidades',
+   'letras classicas',
+   'letras estrangeiras e traducao',
+   'letra',
+   'lingua e literartura alema',
+   'lingua espanhola e literaturas espanhola e hispano-americana',
+   'lingua, literatura e cultura italianas',
+   'lingua, literatura e cultura japonesas',
+   'linguistica',
+   'literatura brasileira',
+   'literatura portuguesa',
+   'mestrado profissional em letras em rede nacional',
+   'profletras',
+   'sociologia',
+   'teoria literaria e literatura comparada',
+ ];
+
+ $valido = FALSE;
+
+  foreach ($programas as $programa) {
+    if (str_contains($value, $programa)) {
+      $valido = TRUE;
+      break;
+    }
+  }
+
+  if (!$valido) {
     $form_state->setError(
       $element,
-      t('Esse programa não faz parte da Pós-Graduação na FFLCH.')
+      t('Esse programa não consta na Pós-Graduação.')
     );
   }
   }

@@ -31,6 +31,16 @@ public static function validateHabilitacao(&$element, FormStateInterface $form_s
     
  $value = $element['#value'];
 
+ $value = mb_strtolower($element['#value'], 'UTF-8');
+
+ $value = strtr($value, [
+  'á' => 'a', 'à' => 'a', 'ã' => 'a', 'â' => 'a',
+  'é' => 'e', 'ê' => 'e',
+  'í' => 'i',
+  'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+  'ú' => 'u',
+  'ç' => 'c',
+ ]);
 
  $habilitacoes = [
   'portugues',
