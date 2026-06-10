@@ -26,32 +26,27 @@ class NumeroUspElement extends Textfield {
   /**
    * Validates the USP number.
    */
-  public static function validateNumeroUsp(
-    &$element,
-    FormStateInterface $form_state,
-    &$complete_form
-  ): void {
+  public static function validateNumeroUsp(&$element, FormStateInterface $form_state,&$complete_form): void {
 
     $value = str_replace(['.', '-'], '', $element['#value']);
 
-    // Value selected in the Webform Select element.
-    $tipo = $form_state->getValue('tipo_de_numero_usp');
+    $tipo = $form_state->getValue('tipo_de_vinculo');
 
     switch ($tipo) {
 
       case 'intercambista':
+      case 'funcionario':
         if (strlen($value) != 7) {
           $form_state->setError(
             $element,
-            t('O Número USP de intercambista deve possuir 7 dígitos.')
+            t('O Número USP deve possuir 7 dígitos.')
           );
         }
-        break;
+        break; 
 
       case 'docente':
       case 'graduacao':
       case 'pos':
-      case 'funcionario':
       default:
         if (strlen($value) != 8) {
           $form_state->setError(
