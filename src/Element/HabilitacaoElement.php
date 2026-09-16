@@ -60,7 +60,6 @@ class HabilitacaoElement extends Select {
             $options[$row['codhab']] = trim($row['nomhab']);
           }
         }
-        asort($options);
       }
     }
     catch (\Throwable $e) {

@@ -48,6 +48,7 @@ class CursosElement extends Select {
 
     $options = [];
 
+    //Replicado lista os cursos da unidade
     try {
       $cursos = Graduacao::listarCursos($database_codunidade);
 

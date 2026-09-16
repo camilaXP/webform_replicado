@@ -48,12 +48,11 @@ class DepartamentosElement extends Select {
 
     $options = [];
 
+    //Replicado lista os departamentos de ensino
     try {
-      // Chama o método público da classe
       $departamentos = Graduacao::listarDepartamentosDeEnsino();
 
       if (!empty($departamentos) && is_array($departamentos)) {
-        // Mapeia codset => nomset
         $options = array_column($departamentos, 'nomset', 'codset');
         asort($options);
       }

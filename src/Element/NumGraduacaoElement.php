@@ -59,7 +59,7 @@ class NumGraduacaoElement extends Textfield {
 
 
 
-    // Retorna os dados do curso ativo se o aluno for de Graduação da unidade
+    //Replicado e verificar se é um número USP de graduação válido
     $aluno = Graduacao::obterCursoAtivo($value, $codundclgi);
 
     if (empty($aluno)) {

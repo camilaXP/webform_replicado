@@ -13,5 +13,5 @@ use Drupal\webform\Plugin\WebformElement\TextField;
  *   category = @Translation("USP")
  * )
  */
-class NumeroUspElement extends TextField {
+class NumValidoElement extends TextField {
 }

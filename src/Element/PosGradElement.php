@@ -45,6 +45,7 @@ class PosGradElement extends Select {
       putenv("REPLICADO_FAKE=0");
     }
 
+    //Replicado lista os programas de pós-graduação da unidade
     $areas = Posgraduacao::programas(8);
 
     $options = array_column($areas, 'nomare', 'codare');

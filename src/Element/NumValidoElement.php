@@ -10,7 +10,7 @@ use Uspdev\Replicado\Pessoa;
  *
  * @FormElement("numero_usp")
  */
-class NumeroUspElement extends Textfield {
+class NumValidoElement extends Textfield {
 
   public function getInfo(): array {
     $class = get_class($this);
@@ -18,7 +18,7 @@ class NumeroUspElement extends Textfield {
     return parent::getInfo() + [
       '#input' => TRUE,
       '#element_validate' => [
-        [$class, 'validateNumeroUsp'],
+        [$class, 'validateNumValido'],
       ],
     ];
   }
@@ -26,7 +26,7 @@ class NumeroUspElement extends Textfield {
   /**
    * Validates the USP number.
    */
-  public static function validateNumeroUsp(&$element, FormStateInterface $form_state,&$complete_form): void {
+  public static function validateNumValido(&$element, FormStateInterface $form_state,&$complete_form): void {
 
     $value = trim($element['#value']);
 

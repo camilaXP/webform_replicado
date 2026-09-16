@@ -57,7 +57,7 @@ class NumPosGradElement extends Textfield {
       putenv('REPLICADO_FAKE=0');
     }
   
-    // Replicado e verificar se é um número USP válido
+    //Replicado e verificar se é um número USP de pós-graduação válido
     if (!Posgraduacao::verifica($value, 8)) {
       $form_state->setError(
         $element,
