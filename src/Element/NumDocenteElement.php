@@ -60,7 +60,7 @@ class NumDocenteElement extends Textfield {
     }
 
     // Replicado e verificar se é um número USP válido
-    if (!Pessoa::servidores($value)) {
+    if (!Pessoa::verificarServidorDocente($value)) {
       $form_state->setError(
         $element,
         t('Esse número USP não é de um(a) docente ativo(a).')

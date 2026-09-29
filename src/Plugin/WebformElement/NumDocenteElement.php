@@ -5,7 +5,7 @@ namespace Drupal\webform_replicado\Plugin\WebformElement;
 use Drupal\webform\Plugin\WebformElement\TextField;
 
 /**
- * Provides a 'numero_graduacao' Webform element.
+ * Provides a 'numero_docente' Webform element.
  *
  * @WebformElement(
  *   id = "numero_docente",
