@@ -4,8 +4,7 @@ namespace Drupal\webform_replicado\Element;
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element\Textfield;
-use Uspdev\Replicado\DB;
-
+use Uspdev\Replicado\Pessoa;
 /**
  * Provides a USP number element.
  *
@@ -39,7 +38,7 @@ class NumFuncionarioElement extends Textfield {
     $database_user = $config->get('database_user');
     $database_password = $config->get('database_password');
     $database_fake = $config->get('replicado_fake');
-   
+    
     // Se não for informado na configuração, define o padrão 8
     $database_codunidade = $config->get('cod_unidade') ?: 8;
 
@@ -51,32 +50,18 @@ class NumFuncionarioElement extends Textfield {
     putenv("REPLICADO_PASSWORD={$database_password}");
     putenv("REPLICADO_CODUNDCLG={$database_codunidade}");
 
-    //Opção fake 
+   //Opção fake
     if($config->get('replicado_fake') == 1) {
       putenv('REPLICADO_FAKE=1');
     } else {
       putenv('REPLICADO_FAKE=0');
     }
-   
-    /*** 2. Validação de Funcionário Técnico-Administrativo ***/
-    $query = "SELECT TOP 1 V.codpes 
-              FROM VINCULOPESSOAUSP V
-              WHERE V.codpes = CONVERT(int, :codpes)
-                AND V.tipvin = 'SERVIDOR' 
-                AND V.tipfnc != 'Docente' 
-                AND V.sitatl = 'A' 
-                AND V.codfusclgund = CONVERT(int, :codundclg)";
-
-    $params = [
-      'codpes' => $value,
-      'codundclg' => $database_codunidade,
-    ];
-
-    // Se o DB::fetch não encontrar nenhum registro correspondente, exibe o erro
-    if (!DB::fetch($query, $params)) {
+  
+    //Replicado e verificar se é um número USP de funcionário válido
+    if (!Pessoa::verificarServidor($value)) {
       $form_state->setError(
         $element,
-        t('Esse número USP não pertence a um(a) funcionário(a) ativo(a).')
+        t('Esse número USP não é de um(a) funcionário(a) ativo(a).')
       );
     }
   }
